@@ -1,0 +1,33 @@
+# /etc/conf.d/bitcoinpaythroughd: config file for /etc/init.d/bitcoinpaythroughd
+
+# Config file location
+#BITCOINPAYTHROUGHD_CONFIGFILE="/etc/bitcoinpaythrough/bitcoinpaythrough.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOINPAYTHROUGHD_USER)
+#BITCOINPAYTHROUGHD_PIDDIR="/var/run/bitcoinpaythroughd"
+
+# What filename to give the pidfile
+#BITCOINPAYTHROUGHD_PIDFILE="${BITCOINPAYTHROUGHD_PIDDIR}/bitcoinpaythroughd.pid"
+
+# Where to write bitcoinpaythroughd data (be mindful that the blockchain is large)
+#BITCOINPAYTHROUGHD_DATADIR="/var/lib/bitcoinpaythroughd"
+
+# User and group to own bitcoinpaythroughd process
+#BITCOINPAYTHROUGHD_USER="bitcoinpaythrough"
+#BITCOINPAYTHROUGHD_GROUP="bitcoinpaythrough"
+
+# Path to bitcoinpaythroughd executable
+#BITCOINPAYTHROUGHD_BIN="/usr/bin/bitcoinpaythroughd"
+
+# Nice value to run bitcoinpaythroughd under
+#BITCOINPAYTHROUGHD_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#BITCOINPAYTHROUGHD_OPTS=""
+
+# The timeout in seconds OpenRC will wait for bitcoinpaythroughd to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+BITCOINPAYTHROUGHD_SIGTERM_TIMEOUT=60

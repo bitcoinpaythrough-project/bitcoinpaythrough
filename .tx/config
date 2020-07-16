@@ -1,0 +1,7 @@
+[main]
+host = https://www.transifex.com
+
+[bitcoinpaythrough.qt-translation-019x]
+file_filter = src/qt/locale/bitcoinpaythrough_<lang>.ts
+source_file = src/qt/locale/bitcoinpaythrough_en.ts
+source_lang = en

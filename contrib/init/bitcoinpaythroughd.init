@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+#
+#  bitcoinpaythroughd The bitcoinpaythrough core server.
+#
+#
+# chkconfig: 345 80 20
+# description: bitcoinpaythroughd
+# processname: bitcoinpaythroughd
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/bitcoinpaythroughd, see below
+if [ -f /etc/sysconfig/bitcoinpaythroughd ]; then
+        . /etc/sysconfig/bitcoinpaythroughd
+fi
+
+RETVAL=0
+
+prog=bitcoinpaythroughd
+# you can override the lockfile via BITCOINPAYTHROUGHD_LOCKFILE in /etc/sysconfig/bitcoinpaythroughd
+lockfile=${BITCOINPAYTHROUGHD_LOCKFILE-/var/lock/subsys/bitcoinpaythroughd}
+
+# bitcoinpaythroughd defaults to /usr/bin/bitcoinpaythroughd, override with BITCOINPAYTHROUGHD_BIN
+bitcoinpaythroughd=${BITCOINPAYTHROUGHD_BIN-/usr/bin/bitcoinpaythroughd}
+
+# bitcoinpaythroughd opts default to -disablewallet, override with BITCOINPAYTHROUGHD_OPTS
+bitcoinpaythroughd_opts=${BITCOINPAYTHROUGHD_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $bitcoinpaythroughd $bitcoinpaythroughd_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
